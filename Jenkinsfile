@@ -3,39 +3,38 @@ pipeline{
     stages{
         stage('checkout the code from github'){
             steps{
-                 git url: 'https://github.com/akshu20791/Banking-java-project/'
+                 git url: 'https://github.com/shrathan/FinanceMe.git'
                  echo 'github url checkout'
             }
         }
-        stage('codecompile with akshat'){
+        stage('code compile & test'){
             steps{
                 echo 'starting compiling'
                 sh 'mvn compile'
-            }
-        }
-        stage('codetesting with akshat'){
-            steps{
                 sh 'mvn test'
             }
         }
-        stage('qa with akshat'){
+        stage('Code package '){
             steps{
-                sh 'mvn checkstyle:checkstyle'
+                sh 'mvn clean package'
             }
         }
-        stage('package with akshat'){
-            steps{
-                sh 'mvn package'
-            }
-        }
-        stage('run dockerfile'){
+        stage('Build dockerfile'){
           steps{
-               sh 'docker build -t myimg .'
+               sh 'docker build -t shrathan/banking:v1 .'
            }
          }
+         stage('Docker login & Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-pwd', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                    sh "echo $PASS | docker login -u $USER --password-stdin"
+                    sh 'docker push shrathan/banking:v1'
+                }
+            }
+        }
         stage('port expose'){
             steps{
-                sh 'docker run -dt -p 8091:8091 --name c000 myimg'
+                sh 'docker run -dt -p 8005:8005 --name banking shrathan/banking:v1'
             }
         }   
     }
