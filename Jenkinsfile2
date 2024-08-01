@@ -13,7 +13,7 @@ pipeline {
         stage('Execute Ansible Playbook') {
             steps {
                 script {
-                    sh 'ansible-playbook FinanceMe/ansible-playbook.yml'
+                    sh 'ansible-playbook ansible-playbook.yml'
                 }
             }
         }
