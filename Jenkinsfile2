@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    stages {
+        stage('Switch to Banking User and Checkout') {
+            steps {
+                script {
+                    sh '''
+                    sudo -u banking bash -c "git clone -b master https://github.com/shrathan/FinanceMe.git"
+                    '''
+                }
+            }
+        }
+
+        stage('Execute Ansible Playbook') {
+            steps {
+                script {
+                    sh '''
+                    sudo -u banking bash -c "ansible-playbook FinanceMe/ansible-playbook.yml"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Ansible playbook executed successfully.'
+        }
+
+        failure {
+            echo 'Ansible playbook execution failed.'
+        }
+    }
+}
