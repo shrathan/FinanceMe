@@ -12,7 +12,7 @@ pipeline{
                 sh 'mvn clean package'
             }
         }
-        stage('Build dockerfile'){
+        stage('Build dockerfiles'){
           steps{
               sh 'docker rm -f banking'
               sh 'docker rmi -f shrathan/banking:v1'
