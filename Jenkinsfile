@@ -14,7 +14,9 @@ pipeline{
         }
         stage('Build dockerfile'){
           steps{
-               sh 'docker build -t shrathan/banking:v1 .'
+              sh 'docker rm -f banking'
+              sh 'docker rmi -f shrathan/banking:v1'
+              sh 'docker build -t shrathan/banking:v1 .'
            }
          }
          stage('Docker login & Push') {
