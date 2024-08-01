@@ -9,7 +9,6 @@ pipeline{
         }
         stage('code compile & test'){
             steps{
-                echo 'starting compiling'
                 sh 'mvn compile'
                 sh 'mvn test'
             }
