@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     stages {
@@ -5,7 +6,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sudo -u banking bash -c "git clone -b master https://github.com/shrathan/FinanceMe.git", branch: "master"
+                    sudo -u banking git clone -b master https://github.com/shrathan/FinanceMe.git
                     '''
                 }
             }
@@ -15,7 +16,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sudo -u banking bash -c "ansible-playbook FinanceMe/ansible-playbook.yml"
+                    sudo -u banking ansible-playbook FinanceMe/ansible-playbook.yml
                     '''
                 }
             }
