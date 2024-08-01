@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    sudo -u banking bash -c "git clone -b master https://github.com/shrathan/FinanceMe.git"
+                    sudo -u banking bash -c "git clone -b master https://github.com/shrathan/FinanceMe.git", branch: "master"
                     '''
                 }
             }
