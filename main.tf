@@ -25,8 +25,8 @@ resource "aws_security_group" "instance_sg" {
 
 # Create an EC2 instance 
 resource "aws_instance" "prod_server" {
-  ami           = "ami-0c55b159cbfafe1f0"             
-  instance_type = "t2.medium"
+  ami           = "ami-003932de22c285676"             
+  instance_type = "t3.medium"
   key_name      = "sk-test"  
   security_groups = [aws_security_group.instance_sg.name]
 
@@ -36,7 +36,7 @@ resource "aws_instance" "prod_server" {
 }
 
 resource "aws_instance" "grafana" {
-  ami           = "ami-0c55b159cbfafe1f0"             
+  ami           = "ami-003932de22c285676"             
   instance_type = "t2.micro"
   key_name      = "sk-test"  
   security_groups = [aws_security_group.instance_sg.name]
