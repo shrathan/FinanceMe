@@ -5,9 +5,9 @@ pipeline {
         stage('Switch to Banking User and Checkout') {
             steps {
                 script {
-                    sh '''
-                    sudo -u banking git clone -b master https://github.com/shrathan/FinanceMe.git
-                    '''
+                    sh 'sudo su'
+                    sh 'su - banking'
+                    git url: 'https://github.com/shrathan/FinanceMe.git', branch: "master"
                 }
             }
         }
