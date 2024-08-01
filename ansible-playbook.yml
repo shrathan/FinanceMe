@@ -1,30 +1,35 @@
 ---
-- name: Docker Configuration
+- name: Docker
   hosts: all
-  become: true
+  become: yes
   connection: ssh
   tasks:
     - name: Update apt package index
       command: sudo apt update
-
-    - name: Install Docker
+  
+    - name: Install Docker engine
       apt:
         name: docker.io
         state: present
-      become: true
 
-    - name: Start Docker Service
+    - name: Start Docker service
       service:
         name: docker
         state: started
         enabled: yes
-      become: true
+      become: yes
 
-    - name: Deploy Docker Container
+    - name: Pull Docker application image
+      docker_image:
+        name: shrathan/banking:v1
+        source: pull
+        state: present
+
+    - name: Run Docker container
       docker_container:
-        name: finance-me
+        name: finance
         image: shrathan/banking:v1
         state: started
+        restart_policy: always
         ports:
-          - "8005:8005"
-
+          - "8005:8005"  
