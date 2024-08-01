@@ -7,12 +7,6 @@ pipeline{
                  echo 'github url checkout'
             }
         }
-        stage('code compile & test'){
-            steps{
-                sh 'mvn compile'
-                sh 'mvn test'
-            }
-        }
         stage('Code package '){
             steps{
                 sh 'mvn clean package'
