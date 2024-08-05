@@ -27,9 +27,9 @@ pipeline{
                 }
             }
         }
-        stage('port expose'){
+        stage('Running Container via Ansible'){
             steps{
-                sh 'docker run -dt -p 8005:8005 --name banking shrathan/banking:v1'
+                ansiblePlaybook become: true, credentialsId: 'Ansinode', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible-playbook.yml', vaultTmpPath: ''
             }
         }   
     }
